@@ -22,6 +22,8 @@ namespace InvoiceTotal
 		}
 
         // TODO: declare class variables for array and list here
+        decimal[] totals = new decimal[3];
+        int count = 0;
 
         private void btnCalculate_Click(object sender, EventArgs e)
 		{
@@ -41,9 +43,9 @@ namespace InvoiceTotal
                         decimal discountPercent = 0m;
                         if (subtotal >= 500)
                             discountPercent = .2m;
-                        else if (subtotal >= 250 & subtotal < 500)
+                        else if (subtotal >= 250 && subtotal < 500)
                             discountPercent = .15m;
-                        else if (subtotal >= 100 & subtotal < 250)
+                        else if (subtotal >= 100 && subtotal < 250)
                             discountPercent = .1m;
                         decimal discountAmount = subtotal * discountPercent;
                         decimal invoiceTotal = subtotal - discountAmount;
@@ -56,6 +58,8 @@ namespace InvoiceTotal
                         txtTotal.Text = invoiceTotal.ToString();
 
                         // TODO:  Add invoice total to the array here
+                        totals[count++] = invoiceTotal;
+                        //count++;
 
                     }
                     else
@@ -72,12 +76,30 @@ namespace InvoiceTotal
                     "Please enter a valid number for the Subtotal field.",
                     "Entry Error");
             }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show(
+                    "You can only enter 3 values",
+                    "Entry Error");
+            }
+
             txtSubtotal.Focus();
         }
 
 		private void btnExit_Click(object sender, EventArgs e)
 		{
             // TODO: add code that displays dialog boxes here
+            string numbersString = "";
+            /*
+            foreach (int number in totals)
+            {
+                numbersString += number.ToString("c") + "  ";
+            }
+            */
+            for (int i = 0; i < count; i++)
+                numbersString += totals[i].ToString("c") + "  ";
+            MessageBox.Show(numbersString, "Invoice Totals");
+
             this.Close();
 		}
 

@@ -22,8 +22,6 @@ namespace InvoiceTotal
 		}
 
         // TODO: declare class variables for array and list here
-        decimal[] totals = new decimal[3];
-        int count = 0;
 
         private void btnCalculate_Click(object sender, EventArgs e)
 		{
@@ -58,8 +56,6 @@ namespace InvoiceTotal
                         txtTotal.Text = invoiceTotal.ToString();
 
                         // TODO:  Add invoice total to the array here
-                        totals[count++] = invoiceTotal;
-                        //count++;
 
                     }
                     else
@@ -89,16 +85,6 @@ namespace InvoiceTotal
 		private void btnExit_Click(object sender, EventArgs e)
 		{
             // TODO: add code that displays dialog boxes here
-            string numbersString = "";
-            /*
-            foreach (int number in totals)
-            {
-                numbersString += number.ToString("c") + "  ";
-            }
-            */
-            for (int i = 0; i < count; i++)
-                numbersString += totals[i].ToString("c") + "  ";
-            MessageBox.Show(numbersString, "Invoice Totals");
 
             this.Close();
 		}

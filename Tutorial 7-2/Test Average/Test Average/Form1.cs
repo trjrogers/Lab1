@@ -44,13 +44,21 @@ namespace Test_Average
         {
             // Declare a variable to hold the highest value, and
             // initialize it with the first value in the array.
+            int highest = iArray[0];
 
             // Step through the rest of the array, beginning at
             // element 1. When a value greater than highest is found,
             // assign that value to highest.
+            for (int index = 1; index < iArray.Length; index++)
+            {
+                if (iArray[index] > highest)
+                {
+                    highest = iArray[index];
+                }
+            }
 
             // Return the highest value.
-            return 0;
+            return highest;
         }
 
         // The Lowest method accepts an int array argument
@@ -59,13 +67,21 @@ namespace Test_Average
         {
             // Declare a variable to hold the lowest value, and
             // initialize it with the first value in the array.
+            int lowest = iArray[0];
 
             // Step through the rest of the array, beginning at
             // element 1. When a value less than lowest is found,
             // assign that value to lowest.
+            for (int index = 1; index < iArray.Length; index++)
+            {
+                if (iArray[index] < lowest)
+                {
+                    lowest = iArray[index];
+                }
+            }
 
             // Return the lowest value.
-            return 0;
+            return lowest;
         }
 
         private void getScoresButton_Click(object sender, EventArgs e)
@@ -82,6 +98,7 @@ namespace Test_Average
                 StreamReader inputFile;        // For file input
 
                 // TODO:  declare a variable, scores, that will store 5 integers
+                int[] scores = new int[SIZE];
 
                 // Open the file and get a StreamReader object.
                 inputFile = File.OpenText("TestScores.txt");
@@ -89,9 +106,8 @@ namespace Test_Average
                 // Read the test scores into the array.
                 while (!inputFile.EndOfStream && index < SIZE)
                 {
-                    // TODO:  read a line from the file, convert to int put in score 
-                    // put score in the array at the current index
-                    // increment the index
+                    scores[index] = int.Parse(inputFile.ReadLine());
+                    index++;
                 }
 
                 // Close the file.
@@ -99,11 +115,19 @@ namespace Test_Average
 
                 // iterate through the array using a foreach loop
                 // and add one item at a time to the listbox
-
+                foreach (int value in scores)
+                {
+                    testScoresListBox.Items.Add(value);
+                }
                 // Get the highest, lowest, and average scores.
-                // Use the methods
+                highestScore = Highest(scores);
+                lowestScore = Lowest(scores);
+                averageScore = Average(scores);
 
-                // Display the values, highest, lowest and average 
+                // Display the values, highest, lowest and average
+                highScoreLabel.Text = highestScore.ToString();
+                lowScoreLabel.Text = lowestScore.ToString();
+                averageScoreLabel.Text = averageScore.ToString();
             }
             catch (Exception ex)
             {

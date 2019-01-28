@@ -22,6 +22,8 @@ namespace InvoiceTotal
 		}
 
         // TODO: declare class variables for array and list here
+        decimal[] totals = new decimal[5];
+        int index = 0;
 
         private void btnCalculate_Click(object sender, EventArgs e)
 		{
@@ -56,7 +58,8 @@ namespace InvoiceTotal
                         txtTotal.Text = invoiceTotal.ToString();
 
                         // TODO:  Add invoice total to the array here
-
+                        totals[index] = invoiceTotal;
+                        index++;
                     }
                     else
                     {
@@ -74,8 +77,9 @@ namespace InvoiceTotal
             }
             catch (IndexOutOfRangeException)
             {
+                //message used to say 3 values, but since our array allows 5 items, that preset message didn't make sense
                 MessageBox.Show(
-                    "You can only enter 3 values",
+                    "You can only enter 5 values",
                     "Entry Error");
             }
 
@@ -85,6 +89,13 @@ namespace InvoiceTotal
 		private void btnExit_Click(object sender, EventArgs e)
 		{
             // TODO: add code that displays dialog boxes here
+            string totalsString = "";
+            for (int i = 0; i < totals.Length; i++)
+            {
+                totalsString += totals[i] + "\n";
+            }
+            MessageBox.Show(totalsString, "Orders Totals");
+
 
             this.Close();
 		}
